@@ -5,6 +5,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
 import { CurrencyExchangerModule } from './currency-exchanger/currency-exchanger.module';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [AppComponent],
@@ -13,6 +15,8 @@ import { CurrencyExchangerModule } from './currency-exchanger/currency-exchanger
     AppRoutingModule,
     CurrencyExchangerModule,
     CoreModule,
+    NgbModule,
+    BrowserAnimationsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
