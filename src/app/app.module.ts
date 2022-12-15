@@ -7,6 +7,7 @@ import { CoreModule } from './core/core.module';
 import { CurrencyExchangerModule } from './currency-exchanger/currency-exchanger.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -16,6 +17,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     CurrencyExchangerModule,
     CoreModule,
     NgbModule,
+    SharedModule,
     BrowserAnimationsModule,
   ],
   providers: [],
