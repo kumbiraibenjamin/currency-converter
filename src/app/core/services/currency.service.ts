@@ -115,8 +115,6 @@ export class CurrencyService {
     const to = symbols.find((symbol) => symbol.symbol === toSymbol);
     const from = symbols.find((symbol) => symbol.symbol === fromSymbol);
 
-    console.log(to, from);
-
     let topCurrencies: CurrencyRate[] = [];
     let convertedAmount: number | undefined = 0;
 

@@ -126,8 +126,6 @@ export class CurrencyDetailComponent implements OnInit {
 
     const { toSymbol, fromSymbol, amount } = event;
 
-    console.log(toSymbol, fromSymbol);
-
     this.currencyService
       .convert(toSymbol, fromSymbol, amount, this.symbols)
       .pipe(
@@ -152,7 +150,6 @@ export class CurrencyDetailComponent implements OnInit {
       )
       .subscribe({
         next: (historicalData) => {
-          console.log(historicalData);
           this.historicalData = historicalData;
         },
         error: () => {
