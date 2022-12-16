@@ -1,5 +1,7 @@
+import { ConditionalExpr } from '@angular/compiler';
 import { Injectable } from '@angular/core';
 import { of, map } from 'rxjs';
+import { DailyRate } from '../models/daily-rate.model';
 import { CurrencyRate } from '../models/rates.model';
 import { CurrencySymbol } from '../models/symbol.model';
 import { ApiService } from './api.service';
@@ -62,7 +64,47 @@ export class CurrencyService {
       );
   }
 
-  getHistoricalData() {}
+  getHistoricalData(
+    base: string,
+    currencies: string,
+    start_date: string,
+    end_date: string
+  ) {
+    return this.apiService
+      .get(
+        `timeseries?start_date=${start_date}&end_date=${end_date}&symbols=${currencies}&base=${base}`
+      )
+      .pipe(
+        map((response: any) => {
+          // {
+          //   "base": "EUR",
+          //   "end_date": "2012-05-03",
+          //   "rates": {
+          //     "2012-05-01": {
+          //       "AUD": 1.278047,
+          //       "CAD": 1.302303,
+          //       "USD": 1.322891
+          //     },
+          //     "2012-05-02": {
+          //       "AUD": 1.274202,
+          //       "CAD": 1.299083,
+          //       "USD": 1.315066
+          //     },
+          //     "2012-05-03": {
+          //       "AUD": 1.280135,
+          //       "CAD": 1.296868,
+          //       "USD": 1.314491
+          //     }
+          //   },
+          //   "start_date": "2012-05-01",
+          //   "success": true,
+          //   "timeseries": true
+          // }
+
+          return this.updateHistory(response);
+        })
+      );
+  }
 
   convert(
     toSymbol: string,
@@ -72,6 +114,8 @@ export class CurrencyService {
   ) {
     const to = symbols.find((symbol) => symbol.symbol === toSymbol);
     const from = symbols.find((symbol) => symbol.symbol === fromSymbol);
+
+    console.log(to, from);
 
     let topCurrencies: CurrencyRate[] = [];
     let convertedAmount: number | undefined = 0;
@@ -100,6 +144,44 @@ export class CurrencyService {
         };
       })
     );
+  }
+
+  private getMonthlyData(data: DailyRate[]) {
+    const monthSet: Set<string | undefined> = new Set<string | undefined>(
+      data.map((d) => d.date?.slice(0, 7))
+    );
+
+    const months: string[] = <string[]>Array.from(monthSet);
+    let result: number[] = [];
+
+    // data.forEach((d) => {
+    months.forEach((m: string) => {
+      const mData = data.filter((d) => d.date?.includes(m));
+      const monthlyRate = mData[mData.length - 1].value;
+      result.push(monthlyRate);
+    });
+
+    return { months, result };
+  }
+
+  private updateHistory(response: any): any {
+    const rateKeys = Object.keys(response.rates);
+    let currencyDailyData: DailyRate[] = [];
+
+    rateKeys.forEach((key) => {
+      const currencyKey = Object.keys(response.rates[key])[0];
+      const currencyValue = response.rates[key][currencyKey];
+
+      const currencyDate: DailyRate = {
+        date: key,
+        value: currencyValue,
+        symbol: currencyKey,
+      };
+
+      currencyDailyData.push(currencyDate);
+    });
+
+    return this.getMonthlyData(currencyDailyData);
   }
 
   private updateSymbols(response: any): CurrencySymbol[] {
@@ -131,7 +213,7 @@ export class CurrencyService {
       };
       rates.push(symbol);
     });
-    console.log(rates);
+
     return rates;
   }
 

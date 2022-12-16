@@ -1,10 +1,4 @@
-import {
-  Component,
-  EventEmitter,
-  Input,
-  OnChanges,
-  Output,
-} from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { faArrowRightArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { CurrencySymbol } from 'src/app/core/models/symbol.model';
@@ -14,7 +8,7 @@ import { CurrencySymbol } from 'src/app/core/models/symbol.model';
   templateUrl: './currency-exchange.component.html',
   styleUrls: ['./currency-exchange.component.scss'],
 })
-export class CurrencyExchangeComponent implements OnChanges {
+export class CurrencyExchangeComponent {
   @Input() symbols: CurrencySymbol[] = [];
   @Input() to: string | undefined = '';
   @Input() from: string | undefined = '';
@@ -38,12 +32,6 @@ export class CurrencyExchangeComponent implements OnChanges {
   faArrowRightArrowleft = faArrowRightArrowLeft;
 
   constructor(private router: Router) {}
-
-  ngOnChanges(simpleChanges: any) {
-    // if (this.to) this.toValue = this.to?.symbol;
-    // if (this.from) this.fromValue = this.from?.symbol;
-    console.log(simpleChanges);
-  }
 
   onToCurrencyChange() {}
 
@@ -69,8 +57,18 @@ export class CurrencyExchangeComponent implements OnChanges {
     this.to = this.from;
     this.from = temp;
 
-    // Run conversion
-    this.onConvertClick();
+    if (this.showDetailsButton) {
+      // Run conversion
+      this.onConvertClick();
+    } else {
+      // Run change url and force conversion
+      const exchangeCurrencies: string = `${this.from}-${this.to}`;
+      this.router.navigate([
+        'currency-exchanger',
+        'detail',
+        exchangeCurrencies,
+      ]);
+    }
   }
 
   onHomeClick() {

@@ -1,1 +1,16 @@
-<p>currency-history works!</p>
+<div *ngIf="data && showgraph">
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <!-- Cases -->
+            <p class="lead">{{fromCurrency?.currency}} ({{fromCurrency?.symbol}}) - {{toCurrency?.currency}}
+                ({{toCurrency?.symbol}}) Monthly Statistics</p>
+            <app-chartjs-container [data]="rateCharts?.chartData" [options]="rateCharts?.chartOptions"
+                [type]="rateCharts?.chartType" [chartHeight]="'auto'" [chartWidth]="'auto'">
+            </app-chartjs-container>
+
+        </div>
+
+    </div>
+
+
+</div>

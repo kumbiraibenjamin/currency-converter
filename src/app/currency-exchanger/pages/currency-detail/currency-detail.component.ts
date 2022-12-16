@@ -28,6 +28,8 @@ export class CurrencyDetailComponent implements OnInit {
   loading: boolean = false;
   error: boolean = false;
 
+  historicalData: { months: string[]; result: number[] } | undefined;
+
   constructor(
     private currencyService: CurrencyService,
     private loaderService: LoaderService,
@@ -56,6 +58,17 @@ export class CurrencyDetailComponent implements OnInit {
             (symbol) => symbol.symbol === this.fromValue
           );
 
+          const { startDate, endDate } = this.getDates();
+
+          return this.currencyService.getHistoricalData(
+            this.fromValue,
+            this.toValue,
+            startDate,
+            endDate
+          );
+        }),
+        switchMap((data) => {
+          this.historicalData = data;
           return this.currencyService.convert(
             this.toValue,
             this.fromValue,
@@ -84,9 +97,23 @@ export class CurrencyDetailComponent implements OnInit {
         complete: () => {
           this.loading = false;
           this.loaderService.hideLoader();
-          console.log('incomplete');
         },
       });
+  }
+  getDates(): { startDate: string; endDate: string } {
+    const date = new Date();
+    const day = date.getDay() > 10 ? date.getDay() : `0${date.getDay()}`;
+    const year = date.getFullYear();
+    const lastYear = date.getFullYear() - 1;
+    const month =
+      date.getMonth() + 1 > 10
+        ? date.getMonth() + 1
+        : `0${date.getMonth() + 1}`;
+
+    return {
+      startDate: `${lastYear}-${month}-${day}`,
+      endDate: `${year}-${month}-${day}`,
+    };
   }
 
   onConvertClick(event: {
@@ -99,10 +126,12 @@ export class CurrencyDetailComponent implements OnInit {
 
     const { toSymbol, fromSymbol, amount } = event;
 
+    console.log(toSymbol, fromSymbol);
+
     this.currencyService
       .convert(toSymbol, fromSymbol, amount, this.symbols)
-      .subscribe({
-        next: (data: any) => {
+      .pipe(
+        switchMap((data: any) => {
           const { to, from, amount, topCurrencies, convertedAmount } = data;
 
           this.to = to;
@@ -110,6 +139,21 @@ export class CurrencyDetailComponent implements OnInit {
           this.amount = amount;
           this.topCurrencies = topCurrencies;
           this.convertedAmount = convertedAmount;
+
+          const { startDate, endDate } = this.getDates();
+
+          return this.currencyService.getHistoricalData(
+            fromSymbol,
+            toSymbol,
+            startDate,
+            endDate
+          );
+        })
+      )
+      .subscribe({
+        next: (historicalData) => {
+          console.log(historicalData);
+          this.historicalData = historicalData;
         },
         error: () => {
           this.loading = false;

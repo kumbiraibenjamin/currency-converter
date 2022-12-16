@@ -7,8 +7,10 @@
     </div>
 
     <!-- currency history  -->
-    <div>
-        <app-currency-history></app-currency-history>
+    <div class="mt-4">
+        <app-currency-history [data]="historicalData" [fromCurrency]="from" [toCurrency]="to"
+            [showgraph]="!loading && !error">
+        </app-currency-history>
     </div>
 
 </div>

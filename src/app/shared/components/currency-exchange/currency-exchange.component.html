@@ -15,9 +15,9 @@
             <input [disabled]="loading || error" type="text" class="form-control" id="amount" [(ngModel)]="amount"
                 aria-describedby="amount">
         </div>
-        <div class="conversion">
-            <input [disabled]="true" type="text" class="form-control" id="conversion"
-                placeholder="{{amount}} {{from}} = {{convertedAmount?.toFixed(2)}} {{to}}">
+        <div class="conversion" *ngIf="convertedAmount">
+            <input [disabled]="true" type="text" class="form-control" id="conversion" placeholder="{{amount}} {{from}} = {{ convertedAmount < 0.1 ?
+                    convertedAmount.toFixed(4) : convertedAmount.toFixed(2)}} {{to}}">
         </div>
 
 
