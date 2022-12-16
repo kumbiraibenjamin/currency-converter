@@ -1,8 +1,13 @@
 <div class="row">
 
-    <div class="col-12 p-0" *ngIf="!showDetailsButton">
-        <div class="d-flex justify-content-end ">
-            <button [disabled]="loading || error" mat-raised-button class="home-button" (click)="onHomeClick()">Back to
+    <div class="col-12 p-0">
+        <div class="d-flex justify-content-between ">
+            <h3 *ngIf="showDetailsButton; else detailsTitle" class="lead title">Currency Exchanger</h3>
+            <ng-template #detailsTitle>
+                <h3 class="lead title">{{from}} - {{fromName}}</h3>
+            </ng-template>
+            <button *ngIf="!showDetailsButton" [disabled]="loading || error" mat-raised-button class="home-button"
+                (click)="onHomeClick()">Back to
                 Home</button>
         </div>
     </div>
@@ -12,8 +17,8 @@
     <div class="col-lg-5 col-md-5 col-sm-12">
         <div class="amount">
             <label for="amount" class="form-label">Amount</label>
-            <input [disabled]="loading || error" type="number" class="form-control" id="amount" [(ngModel)]="amount"
-                aria-describedby="amount">
+            <input [disabled]="loading || error || !showDetailsButton" type="number" class="form-control" id="amount"
+                [(ngModel)]="amount" aria-describedby="amount">
         </div>
         <div class="conversion" *ngIf="convertedAmount">
             <input [disabled]="true" type="text" class="form-control" id="conversion" placeholder="{{amount}} {{from}} = {{ convertedAmount < 0.1 ?
@@ -25,16 +30,21 @@
     <div class="col-lg-7 col-md-7 col-sm-12">
         <div class="row">
             <div class="col-5 d-flex justify-content-start from">
-                <select [(ngModel)]="from" [disabled]="loading || error" (change)="onFromCurrencyChange()"
-                    class="form-control ">
+                <select [(ngModel)]="from" [disabled]="loading || error || !showDetailsButton"
+                    (change)="onFromCurrencyChange()" class="form-control ">
                     <option disabled [ngValue]="''"> Select From Currency</option>
                     <option *ngFor="let symbol of symbols" [ngValue]="symbol.symbol">
                         {{symbol.symbol}} - {{symbol.currency}}</option>
                 </select>
             </div>
             <div class="col-2 d-flex justify-content-center align-items-center">
-                <fa-icon (click)="onSwapClick()" style="cursor: pointer" [icon]="faArrowRightArrowleft" size="2x">
+                <fa-icon *ngIf="showDetailsButton; else singleArrow" (click)="onSwapClick()" style="cursor: pointer"
+                    [icon]="faArrowRightArrowleft" size="2x">
                 </fa-icon>
+                <ng-template #singleArrow>
+                    <fa-icon (click)="onSwapClick()" style="cursor: pointer" [icon]="faArrowRight" size="2x">
+                    </fa-icon>
+                </ng-template>
             </div>
             <div class="col-5 d-flex justify-content-end  to">
                 <select [(ngModel)]="to" [disabled]="loading || error" (change)="onToCurrencyChange()"

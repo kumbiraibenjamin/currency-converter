@@ -1,7 +1,11 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Router } from '@angular/router';
-import { faArrowRightArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import {
+  faArrowRight,
+  faArrowRightArrowLeft,
+} from '@fortawesome/free-solid-svg-icons';
 import { CurrencySymbol } from 'src/app/core/models/symbol.model';
+import { UtilsService } from 'src/app/core/services/utils.service';
 
 @Component({
   selector: 'app-currency-exchange',
@@ -12,6 +16,8 @@ export class CurrencyExchangeComponent {
   @Input() symbols: CurrencySymbol[] = [];
   @Input() to: string | undefined = '';
   @Input() from: string | undefined = '';
+  @Input() toName: string | undefined = '';
+  @Input() fromName: string | undefined = '';
   @Input() amount: number = 1;
   @Input() convertedAmount: number | undefined;
   @Input() loading: boolean = true;
@@ -30,8 +36,9 @@ export class CurrencyExchangeComponent {
   }>();
 
   faArrowRightArrowleft = faArrowRightArrowLeft;
+  faArrowRight = faArrowRight;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private utilsService: UtilsService) {}
 
   onToCurrencyChange() {}
 
@@ -53,21 +60,13 @@ export class CurrencyExchangeComponent {
   }
 
   onSwapClick() {
-    const temp = this.to;
-    this.to = this.from;
-    this.from = temp;
-
     if (this.showDetailsButton) {
+      const temp = this.to;
+      this.to = this.from;
+      this.from = temp;
+
       // Run conversion
       this.onConvertClick();
-    } else {
-      // Run change url and force conversion
-      const exchangeCurrencies: string = `${this.from}-${this.to}`;
-      this.router.navigate([
-        'currency-exchanger',
-        'detail',
-        exchangeCurrencies,
-      ]);
     }
   }
 
