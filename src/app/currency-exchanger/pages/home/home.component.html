@@ -1,1 +1,16 @@
-<p>home works!</p>
+<div class="container">
+    <!-- Exchange section  -->
+    <div>
+        <app-currency-exchange [symbols]="symbols$ | async" [to]="to?.symbol" [from]="from?.symbol" [amount]="amount"
+            [convertedAmount]="convertedAmount" [loading]="loading" [error]="error" (convert)="onConvertClick($event)">
+        </app-currency-exchange>
+    </div>
+
+    <!-- converted currency cards  -->
+    <div class="row mt-4">
+        <div class="col-lg-4 col-md-6 col-sm-12" *ngFor="let currency of topCurrencies">
+            <app-currency-card [symbol]="currency.symbol" [convertedAmount]="currency.value"></app-currency-card>
+        </div>
+    </div>
+
+</div>

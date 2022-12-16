@@ -1,1 +1,14 @@
-<p>currency-detail works!</p>
+<div class="container">
+    <!-- Exchange section  -->
+    <div>
+        <app-currency-exchange [showDetailsButton]="false" [symbols]="symbols$ | async" [to]="to?.symbol"
+            [from]="from?.symbol" [amount]="amount" [convertedAmount]="convertedAmount" [loading]="loading"
+            [error]="error" (convert)="onConvertClick($event)"></app-currency-exchange>
+    </div>
+
+    <!-- currency history  -->
+    <div>
+        <app-currency-history></app-currency-history>
+    </div>
+
+</div>

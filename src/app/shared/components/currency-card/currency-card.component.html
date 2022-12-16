@@ -1,0 +1,11 @@
+<div class="card radius-10 border-start border-0 border-3 border-left">
+    <div class="card-body">
+        <div class="d-flex align-items-center">
+            <div class="">
+                <p class="mb-0 lead title">{{symbol}}</p>
+                <h4 *ngIf="convertedAmount" class="my-1 text-count">{{ convertedAmount < 0.1 ?
+                        convertedAmount.toFixed(4) : convertedAmount.toFixed(2)}}</h4>
+            </div>
+        </div>
+    </div>
+</div>

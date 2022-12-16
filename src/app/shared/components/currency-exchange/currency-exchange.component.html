@@ -1,0 +1,65 @@
+<div class="row">
+
+    <div class="col-12 p-0" *ngIf="!showDetailsButton">
+        <div class="d-flex justify-content-end ">
+            <button [disabled]="loading || error" mat-raised-button class="home-button" (click)="onHomeClick()">Back to
+                Home</button>
+        </div>
+    </div>
+
+</div>
+<div class="row exchange">
+    <div class="col-lg-5 col-md-5 col-sm-12">
+        <div class="amount">
+            <label for="amount" class="form-label">Amount</label>
+            <input [disabled]="loading || error" type="text" class="form-control" id="amount" [(ngModel)]="amount"
+                aria-describedby="amount">
+        </div>
+        <div class="conversion">
+            <input [disabled]="true" type="text" class="form-control" id="conversion"
+                placeholder="{{amount}} {{from}} = {{convertedAmount?.toFixed(2)}} {{to}}">
+        </div>
+
+
+    </div>
+    <div class="col-lg-7 col-md-7 col-sm-12">
+        <div class="row">
+            <div class="col-5 d-flex justify-content-start from">
+                <select [(ngModel)]="from" [disabled]="loading || error" (change)="onFromCurrencyChange()"
+                    class="form-control ">
+                    <option disabled [ngValue]="''"> Select From Currency</option>
+                    <option *ngFor="let symbol of symbols" [ngValue]="symbol.symbol">
+                        {{symbol.symbol}} - {{symbol.currency}}</option>
+                </select>
+            </div>
+            <div class="col-2 d-flex justify-content-center align-items-center">
+                <fa-icon (click)="onSwapClick()" style="cursor: pointer" [icon]="faArrowRightArrowleft" size="2x">
+                </fa-icon>
+            </div>
+            <div class="col-5 d-flex justify-content-end  to">
+                <select [(ngModel)]="to" [disabled]="loading || error" (change)="onToCurrencyChange()"
+                    class="form-control">
+                    <option disabled [ngValue]="''"> Select To Currency</option>
+                    <option *ngFor="let symbol of symbols" [ngValue]="symbol.symbol">
+                        {{symbol.symbol}} - {{symbol.currency}}</option>
+                </select>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-12 d-flex justify-content-center">
+                <button [disabled]="loading || error" mat-raised-button class="convert-button"
+                    (click)="onConvertClick()">Convert</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col" *ngIf="to">
+                <app-currency-card [symbol]="to" [convertedAmount]="convertedAmount"></app-currency-card>
+            </div>
+            <div class="col d-flex justify-content-center align-items-center" *ngIf="showDetailsButton">
+                <button [disabled]="loading || error" mat-raised-button class="convert-button"
+                    (click)="onMoreDetailsClick()">More Details</button>
+            </div>
+        </div>
+    </div>
+</div>

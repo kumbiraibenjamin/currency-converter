@@ -1,0 +1,42 @@
+@import "../../../../variables.scss";
+
+.exchange{
+    background-color: #efeeee;
+    padding: 20px;
+}
+
+.back-home{
+    // max-width: 400px;
+}
+
+.convert-button
+ {
+    background-color: $maroon !important; 
+    border-radius: 0 !important;
+    width: 100%;
+    margin: 10px 0 !important;
+}
+
+
+.home-button {
+    background-color: $maroon !important; 
+    border-radius: 0 !important;
+    margin-bottom: 20px;
+}
+
+.to select,
+.from select {    
+    border-radius: 0 !important;
+}
+
+.amount input{
+    border-radius: 0 !important;
+    margin-bottom: 50px;
+}
+
+.conversion input{
+    border-radius: 0 !important;
+    margin-bottom: 50px;
+}
+  
+  
