@@ -51,7 +51,7 @@ export class HomeComponent implements OnInit {
           return this.currencyService.convert(
             this.defaultTo,
             this.defaultFrom,
-            this.amount,
+            this.currencyService.amount,
             this.symbols
           );
         })
@@ -87,6 +87,9 @@ export class HomeComponent implements OnInit {
     this.loaderService.showLoader();
 
     const { toSymbol, fromSymbol, amount } = event;
+
+    // set global amount
+    this.currencyService.amount = amount;
 
     this.currencyService
       .convert(toSymbol, fromSymbol, amount, this.symbols)

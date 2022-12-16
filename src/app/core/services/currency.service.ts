@@ -11,6 +11,7 @@ import { UtilsService } from './utils.service';
   providedIn: 'root',
 })
 export class CurrencyService {
+  amount: number = 1;
   constructor(
     private apiService: ApiService,
     private utilsService: UtilsService

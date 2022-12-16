@@ -4,6 +4,7 @@ import { map, Observable, switchMap } from 'rxjs';
 import { CurrencyRate } from 'src/app/core/models/rates.model';
 import { CurrencySymbol } from 'src/app/core/models/symbol.model';
 import { CurrencyService } from 'src/app/core/services/currency.service';
+import { UtilsService } from 'src/app/core/services/utils.service';
 import { LoaderService } from 'src/app/shared/components/loader/loader.service';
 
 @Component({
@@ -32,6 +33,7 @@ export class CurrencyDetailComponent implements OnInit {
 
   constructor(
     private currencyService: CurrencyService,
+    private utilsService: UtilsService,
     private loaderService: LoaderService,
     private route: ActivatedRoute
   ) {}
@@ -46,7 +48,6 @@ export class CurrencyDetailComponent implements OnInit {
           const currencies = params.currency.split('-');
           this.fromValue = currencies[0];
           this.toValue = currencies[1];
-
           this.symbols$ = this.currencyService.getSymbols();
           return this.symbols$;
         }),
@@ -73,7 +74,7 @@ export class CurrencyDetailComponent implements OnInit {
           return this.currencyService.convert(
             this.toValue,
             this.fromValue,
-            this.amount,
+            this.currencyService.amount,
             this.symbols
           );
         })
@@ -126,6 +127,9 @@ export class CurrencyDetailComponent implements OnInit {
     this.loaderService.showLoader();
 
     const { toSymbol, fromSymbol, amount } = event;
+
+    // set global amount
+    this.currencyService.amount = amount;
 
     this.currencyService
       .convert(toSymbol, fromSymbol, amount, this.symbols)
