@@ -4,6 +4,12 @@
     </div>
     <span class="nav-spacer"></span>
 
-    <button mat-raised-button class="nav-button" (click)="onNavButtonClick('EUR-USD')">EUR - USD Details</button>
-    <button mat-raised-button class="nav-button" (click)="onNavButtonClick('EUR-GBP')">EUR - GBP Details</button>
+    <button mat-raised-button class="nav-button" (click)="onNavButtonClick('EUR-USD')">
+        <span class="hide-mobile">EUR - USD Details</span>
+        <span class="show-mobile"><small>EUR-USD</small></span>
+    </button>
+    <button mat-raised-button class="nav-button" (click)="onNavButtonClick('EUR-GBP')">
+        <span class="hide-mobile">EUR - GBP Details</span>
+        <span class="show-mobile"><small>EUR-GBP</small></span>
+    </button>
 </mat-toolbar>

@@ -68,7 +68,10 @@
             </div>
             <div class="col d-flex justify-content-center align-items-center" *ngIf="showDetailsButton">
                 <button [disabled]="loading || error" mat-raised-button class="convert-button"
-                    (click)="onMoreDetailsClick()">More Details</button>
+                    (click)="onMoreDetailsClick()">
+
+                    <span class="hide-mobile">More Details</span>
+                    <span class="show-mobile">Details</span></button>
             </div>
         </div>
     </div>
