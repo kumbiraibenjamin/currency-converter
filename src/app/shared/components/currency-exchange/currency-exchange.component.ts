@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, TitleStrategy } from '@angular/router';
 import {
   faArrowRight,
   faArrowRightArrowLeft,
@@ -40,9 +40,13 @@ export class CurrencyExchangeComponent {
 
   constructor(private router: Router, private utilsService: UtilsService) {}
 
-  onToCurrencyChange() {}
+  onToCurrencyChange() {
+    this.convertedAmount = undefined;
+  }
 
-  onFromCurrencyChange() {}
+  onFromCurrencyChange() {
+    this.convertedAmount = undefined;
+  }
 
   onConvertClick() {
     if (this.to && this.from) {
