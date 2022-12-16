@@ -1,0 +1,25 @@
+:host {
+  width: 75%;
+  margin: 30px;
+  z-index: 1200;
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  // .top {
+  //   position: fixed;
+  //   top: 0;
+  //   left: 0;
+  // }
+
+  // .bottom {
+  //   position: fixed;
+  //   bottom: 0;
+  //   right: 0;
+  // }
+}
+
+.toast {
+  max-width: 100% !important;
+  opacity: 0.98;
+}

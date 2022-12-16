@@ -1,0 +1,9 @@
+<mat-toolbar class="nav-toolbar">
+    <div>
+        <img class="nav-heading-logo" (click)="onLogoClick()" src="../../../assets/logo.png" alt="">
+    </div>
+    <span class="nav-spacer"></span>
+
+    <button mat-raised-button class="nav-button" (click)="onNavButtonClick('EUR-USD')">EUR - USD Details</button>
+    <button mat-raised-button class="nav-button" (click)="onNavButtonClick('EUR-GBP')">EUR - GBP Details</button>
+</mat-toolbar>

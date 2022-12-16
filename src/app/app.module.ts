@@ -8,6 +8,15 @@ import { CurrencyExchangerModule } from './currency-exchanger/currency-exchanger
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from './shared/shared.module';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { ErrorInterceptor } from './core/interceptors/http-error.interceptor';
+import { HeaderInterceptor } from './core/interceptors/http-header.interceptor';
+import { registerLocaleData } from '@angular/common';
+import localeFr from '@angular/common/locales/fr';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+
+// the second parameter 'fr' is optional
+registerLocaleData(localeFr, 'fr');
 
 @NgModule({
   declarations: [AppComponent],
@@ -18,9 +27,22 @@ import { SharedModule } from './shared/shared.module';
     CoreModule,
     NgbModule,
     SharedModule,
+    HttpClientModule,
     BrowserAnimationsModule,
+    FontAwesomeModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HeaderInterceptor,
+      multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
