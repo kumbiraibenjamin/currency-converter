@@ -4,9 +4,9 @@
 
 export const environment = {
   production: false,
-  API_KEY: '3s1JtYNwOunBsq5NruI4lAIihmfogaGh', // personal
-  //  API_KEY: 'oWTkFb9uzkK2zuaZFESL21C6hWd6cIVz', // andela
-  API_URL: 'https://data.fixer.io/api/',
+  API_KEY: 'oWTkFb9uzkK2zuaZFESL21C6hWd6cIVz',
+  // API_URL: 'https://data.fixer.io/api',
+  API_URL: 'https://api.apilayer.com/fixer',
 };
 
 /*
