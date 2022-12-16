@@ -58,7 +58,8 @@ export class CurrencyDetailComponent implements OnInit {
             (symbol) => symbol.symbol === this.fromValue
           );
 
-          const { startDate, endDate } = this.getDates();
+          const date = new Date();
+          const { startDate, endDate } = this.getDates(date);
 
           return this.currencyService.getHistoricalData(
             this.fromValue,
@@ -100,9 +101,9 @@ export class CurrencyDetailComponent implements OnInit {
         },
       });
   }
-  getDates(): { startDate: string; endDate: string } {
-    const date = new Date();
-    const day = date.getDay() > 10 ? date.getDay() : `0${date.getDay()}`;
+
+  getDates(date: Date): { startDate: string; endDate: string } {
+    const day = date.getDate() > 10 ? date.getDate() : `0${date.getDate()}`;
     const year = date.getFullYear();
     const lastYear = date.getFullYear() - 1;
     const month =
@@ -138,7 +139,8 @@ export class CurrencyDetailComponent implements OnInit {
           this.topCurrencies = topCurrencies;
           this.convertedAmount = convertedAmount;
 
-          const { startDate, endDate } = this.getDates();
+          const date = new Date();
+          const { startDate, endDate } = this.getDates(date);
 
           return this.currencyService.getHistoricalData(
             fromSymbol,

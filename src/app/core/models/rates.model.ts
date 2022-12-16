@@ -1,4 +1,5 @@
-export interface CurrencyRate {
-  symbol: string;
+import { CurrencySymbol } from './symbol.model';
+
+export interface CurrencyRate extends CurrencySymbol {
   value: number;
 }

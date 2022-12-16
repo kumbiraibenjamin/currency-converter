@@ -101,7 +101,9 @@ export class CurrencyService {
           //   "timeseries": true
           // }
 
-          return this.updateHistory(response);
+          const currencyDailyData = this.updateHistory(response);
+
+          return this.getMonthlyData(currencyDailyData);
         })
       );
   }
@@ -144,7 +146,7 @@ export class CurrencyService {
     );
   }
 
-  private getMonthlyData(data: DailyRate[]) {
+  getMonthlyData(data: DailyRate[]): { months: string[]; result: number[] } {
     const monthSet: Set<string | undefined> = new Set<string | undefined>(
       data.map((d) => d.date?.slice(0, 7))
     );
@@ -162,7 +164,7 @@ export class CurrencyService {
     return { months, result };
   }
 
-  private updateHistory(response: any): any {
+  updateHistory(response: any): DailyRate[] {
     const rateKeys = Object.keys(response.rates);
     let currencyDailyData: DailyRate[] = [];
 
@@ -179,10 +181,10 @@ export class CurrencyService {
       currencyDailyData.push(currencyDate);
     });
 
-    return this.getMonthlyData(currencyDailyData);
+    return currencyDailyData;
   }
 
-  private updateSymbols(response: any): CurrencySymbol[] {
+  updateSymbols(response: any): CurrencySymbol[] {
     const symbolKeys = Object.keys(response.symbols);
     let symbols: CurrencySymbol[] = [];
 
@@ -200,7 +202,7 @@ export class CurrencyService {
     return symbols;
   }
 
-  private updateRates(response: any, amount: number): CurrencyRate[] {
+  updateRates(response: any, amount: number): CurrencyRate[] {
     const rateKeys = Object.keys(response.rates);
     let rates: CurrencyRate[] = [];
 
@@ -215,7 +217,7 @@ export class CurrencyService {
     return rates;
   }
 
-  private getTopCurrencies(from: string, to: string): string {
+  getTopCurrencies(from: string, to: string): string {
     const top = [
       'EUR',
       'USD',

@@ -1,4 +1,4 @@
 export interface CurrencySymbol {
-  currency: string;
+  currency?: string;
   symbol: string;
 }

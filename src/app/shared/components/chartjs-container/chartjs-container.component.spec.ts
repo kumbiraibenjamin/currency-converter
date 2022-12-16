@@ -1,3 +1,4 @@
+import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ChartjsContainerComponent } from './chartjs-container.component';
@@ -8,9 +9,9 @@ describe('ChartjsContainerComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ChartjsContainerComponent ]
-    })
-    .compileComponents();
+      declarations: [ChartjsContainerComponent],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(ChartjsContainerComponent);
     component = fixture.componentInstance;
