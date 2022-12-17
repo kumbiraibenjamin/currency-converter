@@ -39,7 +39,7 @@ export class CurrencyHistoryComponent {
             pointBackgroundColor: '#004a9f',
             pointBorderColor: '#fff',
             pointHoverBackgroundColor: '#fff',
-            pointHoverBorderColor: 'rgba(148,159,177,0.8)',
+            pointHoverBorderColor: '#000',
             fill: 'origin',
           },
         ],
@@ -48,9 +48,7 @@ export class CurrencyHistoryComponent {
 
       const chartOptions: ChartConfiguration['options'] = {
         elements: {
-          line: {
-            tension: 0.5,
-          },
+          line: {},
         },
         scales: {
           // We use this empty structure as a placeholder for dynamic theming.
