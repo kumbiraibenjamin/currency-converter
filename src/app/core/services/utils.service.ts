@@ -4,8 +4,6 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class UtilsService {
-  constructor() {}
-
   setSessionStorage<T>(key: string, item: T | T[]) {
     const stringObj = JSON.stringify(item);
     sessionStorage.setItem(key, stringObj);

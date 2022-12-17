@@ -5,9 +5,7 @@ import { Injectable, TemplateRef } from '@angular/core';
 })
 export class ToastService {
   toasts: any[] = [];
-  defaultDelay: number = 5000;
-
-  constructor() {}
+  defaultDelay = 5000;
 
   show(textOrTpl: string | TemplateRef<any>, options: any = {}) {
     this.toasts.push({ textOrTpl, ...options });

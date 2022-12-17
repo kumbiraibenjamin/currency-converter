@@ -1,24 +1,19 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
 import { ChartConfiguration, ChartType } from 'chart.js';
 import { CurrencySymbol } from 'src/app/core/models/symbol.model';
-import { CurrencyService } from 'src/app/core/services/currency.service';
 
 @Component({
   selector: 'app-currency-history',
   templateUrl: './currency-history.component.html',
   styleUrls: ['./currency-history.component.scss'],
 })
-export class CurrencyHistoryComponent {
+export class CurrencyHistoryComponent implements OnChanges {
   @Input() data: { months: string[]; result: number[] } | undefined;
-  @Input() showgraph: boolean = false;
+  @Input() showgraph = false;
   @Input() toCurrency: CurrencySymbol | undefined;
   @Input() fromCurrency: CurrencySymbol | undefined;
 
   rateCharts: { chartData: any; chartOptions: any; chartType: any } | undefined;
-
-  constructor() {}
-
-  ngOnInit(): void {}
 
   ngOnChanges() {
     this.rateCharts = this.generateRateData(this.data);

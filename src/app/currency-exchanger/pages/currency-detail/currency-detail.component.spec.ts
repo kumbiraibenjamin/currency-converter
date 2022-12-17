@@ -1,7 +1,6 @@
 import { HttpClientModule } from '@angular/common/http';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { CurrencyDetailComponent } from './currency-detail.component';
@@ -27,7 +26,7 @@ describe('CurrencyDetailComponent', () => {
   });
 
   it('should return current date and last year same day date', () => {
-    let currentDate = new Date('2022-12-15');
+    const currentDate = new Date('2022-12-15');
     const expectedOutput = { startDate: '2021-12-15', endDate: '2022-12-15' };
 
     expect(component.getDates(currentDate)).toEqual(expectedOutput);

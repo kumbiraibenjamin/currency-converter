@@ -6,13 +6,11 @@ import {
   HttpRequest,
   HttpHeaders,
 } from '@angular/common/http';
-import { Observable, take } from 'rxjs';
+import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class HeaderInterceptor implements HttpInterceptor {
-  constructor() {}
-
   intercept<T>(
     req: HttpRequest<T>,
     next: HttpHandler

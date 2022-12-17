@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { map, Observable, switchMap } from 'rxjs';
+import { Observable, switchMap } from 'rxjs';
 import { CurrencyRate } from 'src/app/core/models/rates.model';
 import { CurrencySymbol } from 'src/app/core/models/symbol.model';
 import { CurrencyService } from 'src/app/core/services/currency.service';
@@ -19,15 +19,15 @@ export class CurrencyDetailComponent implements OnInit {
   to: CurrencySymbol | undefined;
   from: CurrencySymbol | undefined;
 
-  toValue: string = '';
-  fromValue: string = '';
+  toValue = '';
+  fromValue = '';
 
-  amount: number = 1;
+  amount = 1;
   convertedAmount: number | undefined;
 
   topCurrencies: CurrencyRate[] = [];
-  loading: boolean = false;
-  error: boolean = false;
+  loading = false;
+  error = false;
 
   historicalData: { months: string[]; result: number[] } | undefined;
 

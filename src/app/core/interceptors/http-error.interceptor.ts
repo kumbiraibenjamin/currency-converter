@@ -4,18 +4,9 @@ import {
   HttpInterceptor,
   HttpHandler,
   HttpRequest,
-  HttpHeaders,
   HttpErrorResponse,
 } from '@angular/common/http';
-import {
-  catchError,
-  map,
-  Observable,
-  of,
-  retry,
-  switchMap,
-  throwError,
-} from 'rxjs';
+import { catchError, Observable, of, retry, switchMap, throwError } from 'rxjs';
 import { ToastService } from 'src/app/shared/components/toast/toast.service';
 import { Router } from '@angular/router';
 

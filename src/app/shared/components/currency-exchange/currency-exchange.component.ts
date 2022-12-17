@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Router, TitleStrategy } from '@angular/router';
+import { Router } from '@angular/router';
 import {
   faArrowRight,
   faArrowRightArrowLeft,
@@ -18,10 +18,10 @@ export class CurrencyExchangeComponent {
   @Input() from: string | undefined = '';
   @Input() toName: string | undefined = '';
   @Input() fromName: string | undefined = '';
-  @Input() amount: number = 1;
+  @Input() amount = 1;
   @Input() convertedAmount: number | undefined;
-  @Input() loading: boolean = true;
-  @Input() error: boolean = false;
+  @Input() loading = true;
+  @Input() error = false;
 
   @Input() showDetailsButton = true;
 
@@ -59,7 +59,7 @@ export class CurrencyExchangeComponent {
   }
 
   onMoreDetailsClick() {
-    const exchangeCurrencies: string = `${this.from}-${this.to}`;
+    const exchangeCurrencies = `${this.from}-${this.to}`;
     this.router.navigate(['currency-exchanger', 'detail', exchangeCurrencies]);
   }
 

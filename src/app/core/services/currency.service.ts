@@ -1,4 +1,3 @@
-import { ConditionalExpr } from '@angular/compiler';
 import { Injectable } from '@angular/core';
 import { of, map } from 'rxjs';
 import { DailyRate } from '../models/daily-rate.model';
@@ -11,7 +10,7 @@ import { UtilsService } from './utils.service';
   providedIn: 'root',
 })
 export class CurrencyService {
-  amount: number = 1;
+  amount = 1;
   constructor(
     private apiService: ApiService,
     private utilsService: UtilsService
@@ -153,7 +152,7 @@ export class CurrencyService {
     );
 
     const months: string[] = <string[]>Array.from(monthSet);
-    let result: number[] = [];
+    const result: number[] = [];
 
     // data.forEach((d) => {
     months.forEach((m: string) => {
@@ -167,7 +166,7 @@ export class CurrencyService {
 
   updateHistory(response: any): DailyRate[] {
     const rateKeys = Object.keys(response.rates);
-    let currencyDailyData: DailyRate[] = [];
+    const currencyDailyData: DailyRate[] = [];
 
     rateKeys.forEach((key) => {
       const currencyKey = Object.keys(response.rates[key])[0];
@@ -187,7 +186,7 @@ export class CurrencyService {
 
   updateSymbols(response: any): CurrencySymbol[] {
     const symbolKeys = Object.keys(response.symbols);
-    let symbols: CurrencySymbol[] = [];
+    const symbols: CurrencySymbol[] = [];
 
     symbolKeys.forEach((symbolKey: string) => {
       const symbol: CurrencySymbol = {
@@ -205,7 +204,7 @@ export class CurrencyService {
 
   updateRates(response: any, amount: number): CurrencyRate[] {
     const rateKeys = Object.keys(response.rates);
-    let rates: CurrencyRate[] = [];
+    const rates: CurrencyRate[] = [];
 
     rateKeys.forEach((rateKey: string) => {
       const symbol: CurrencyRate = {
@@ -234,7 +233,7 @@ export class CurrencyService {
       'ZAR',
     ];
 
-    let filtered: string[] = [];
+    const filtered: string[] = [];
     let counter = 0;
 
     top.forEach((t) => {

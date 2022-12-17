@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { filter, map, Observable, switchMap } from 'rxjs';
+import { Observable, switchMap } from 'rxjs';
 import { CurrencyRate } from 'src/app/core/models/rates.model';
 import { CurrencySymbol } from 'src/app/core/models/symbol.model';
-import { ApiService } from 'src/app/core/services/api.service';
 import { CurrencyService } from 'src/app/core/services/currency.service';
 import { LoaderService } from 'src/app/shared/components/loader/loader.service';
 
@@ -18,15 +17,15 @@ export class HomeComponent implements OnInit {
   to: CurrencySymbol | undefined;
   from: CurrencySymbol | undefined;
 
-  defaultTo: string = 'USD';
-  defaultFrom: string = 'EUR';
+  defaultTo = 'USD';
+  defaultFrom = 'EUR';
 
-  amount: number = 1;
+  amount = 1;
   convertedAmount: number | undefined;
 
   topCurrencies: CurrencyRate[] = [];
-  loading: boolean = false;
-  error: boolean = false;
+  loading = false;
+  error = false;
 
   constructor(
     private currencyService: CurrencyService,

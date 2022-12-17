@@ -152,8 +152,7 @@ describe('CurrencyService', () => {
   });
 
   it('should get list of top currencies as a comma separated string', () => {
-    const expectedOutput: string =
-      'USD,JPY,GBP,AUD,CAD,CHF,CNH,HKD,NZD,AED,AFN';
+    const expectedOutput = 'USD,JPY,GBP,AUD,CAD,CHF,CNH,HKD,NZD,AED,AFN';
 
     const updatedResponse = service.getTopCurrencies('EUR', 'AFN');
 

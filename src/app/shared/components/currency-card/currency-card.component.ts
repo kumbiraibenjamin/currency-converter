@@ -6,10 +6,10 @@ import { Component, HostBinding, Input } from '@angular/core';
   styleUrls: ['./currency-card.component.scss'],
 })
 export class CurrencyCardComponent {
-  @Input() symbol: string = '';
+  @Input() symbol = '';
   @Input() convertedAmount: number | undefined;
 
   @HostBinding('style.--color')
   @Input()
-  color: string = '#871e35';
+  color = '#871e35';
 }
